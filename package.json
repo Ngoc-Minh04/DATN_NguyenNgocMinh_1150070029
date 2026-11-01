@@ -1,0 +1,12 @@
+{
+  "name": "datn-secure-communication-root",
+  "version": "1.0.0",
+  "description": "Root workspace for secure internal communication system",
+  "scripts": {
+    "dev": "npm --prefix server run dev",
+    "build": "npm --prefix server run build",
+    "server": "npm --prefix server run dev",
+    "client": "npm --prefix client run dev"
+  },
+  "author": "Nguyen Ngoc Minh"
+}
