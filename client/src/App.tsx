@@ -862,7 +862,7 @@ export default function App() {
 
       {/* 4. FOOTER */}
       <footer className="border-t border-slate-900 bg-slate-950 py-3 px-6 text-center text-xs text-slate-500">
-        Khóa luận tốt nghiệp Đại học — Sinh viên: Nguyễn Ngọc Minh (1150070029 - 11_ĐH_TMĐT) — GVHD: ThS. Từ Thanh Trí
+        Hệ thống Bảo mật & Kiểm soát Trao đổi Thông tin Nội bộ (DLP & Secure Communication)
       </footer>
     </div>
   );
