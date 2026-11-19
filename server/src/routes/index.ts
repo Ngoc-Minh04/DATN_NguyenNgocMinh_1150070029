@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { authRouter } from '../modules/auth/auth.routes.js';
 import { dlpRouter } from '../modules/security/dlp.routes.js';
 import { auditRouter } from '../modules/audit/audit.routes.js';
@@ -12,7 +12,7 @@ apiRouter.use('/audit', auditRouter);
 apiRouter.use('/communication', commRouter);
 
 // Health check endpoint
-apiRouter.get('/health', (req, res) => {
+apiRouter.get('/health', (req: Request, res: Response) => {
   res.status(200).json({
     status: 'ONLINE',
     system: 'Hệ thống bảo mật và kiểm soát trao đổi thông tin nội bộ',

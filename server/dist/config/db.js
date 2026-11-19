@@ -27,7 +27,7 @@ exports.dbPool = env_js_1.ENV.DATABASE_URL
         connectionTimeoutMillis: 5000,
     });
 exports.dbPool.on('error', (err) => {
-    console.error('[PostgreSQL Error] Unexpected error on idle client:', err.message);
+    console.error('[PostgreSQL Error] Unexpected error on idle client:', err?.message || err);
 });
 async function testDbConnection() {
     try {
