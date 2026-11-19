@@ -7,6 +7,7 @@ export const ENV = {
   CORS_ORIGIN: process.env.CORS_ORIGIN || 'http://localhost:5173',
   
   // PostgreSQL
+  DATABASE_URL: process.env.DATABASE_URL || '',
   PG_HOST: process.env.PG_HOST || 'localhost',
   PG_PORT: parseInt(process.env.PG_PORT || '5432', 10),
   PG_USER: process.env.PG_USER || 'postgres',
@@ -14,6 +15,7 @@ export const ENV = {
   PG_DATABASE: process.env.PG_DATABASE || 'secure_comms_db',
   
   // Redis
+  REDIS_URL: process.env.REDIS_URL || '',
   REDIS_HOST: process.env.REDIS_HOST || 'localhost',
   REDIS_PORT: parseInt(process.env.REDIS_PORT || '6379', 10),
   REDIS_PASSWORD: process.env.REDIS_PASSWORD || undefined,

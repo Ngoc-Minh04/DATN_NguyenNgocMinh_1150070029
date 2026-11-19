@@ -13,7 +13,9 @@ app.use(helmet());
 // 2. Cấu hình CORS
 app.use(
   cors({
-    origin: ENV.CORS_ORIGIN,
+    origin: (origin, callback) => {
+      callback(null, true); // Cho phép frontend (localhost, Vercel, v.v.) kết nối an toàn
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,

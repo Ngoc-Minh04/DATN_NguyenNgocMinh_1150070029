@@ -10,7 +10,7 @@ const httpServer = http.createServer(app);
 // Cấu hình Socket.io cho liên lạc tin nhắn thời gian thực
 export const io = new SocketIOServer(httpServer, {
   cors: {
-    origin: ENV.CORS_ORIGIN,
+    origin: (origin, callback) => callback(null, true),
     methods: ['GET', 'POST'],
     credentials: true,
   },

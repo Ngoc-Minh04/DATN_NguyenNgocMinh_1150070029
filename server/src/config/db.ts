@@ -3,16 +3,24 @@ import { ENV } from './env.js';
 
 const { Pool } = pg;
 
-export const dbPool = new Pool({
-  host: ENV.PG_HOST,
-  port: ENV.PG_PORT,
-  user: ENV.PG_USER,
-  password: ENV.PG_PASSWORD,
-  database: ENV.PG_DATABASE,
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 5000,
-});
+export const dbPool = ENV.DATABASE_URL
+  ? new Pool({
+      connectionString: ENV.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000,
+    })
+  : new Pool({
+      host: ENV.PG_HOST,
+      port: ENV.PG_PORT,
+      user: ENV.PG_USER,
+      password: ENV.PG_PASSWORD,
+      database: ENV.PG_DATABASE,
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 5000,
+    });
 
 dbPool.on('error', (err) => {
   console.error('[PostgreSQL Error] Unexpected error on idle client:', err.message);

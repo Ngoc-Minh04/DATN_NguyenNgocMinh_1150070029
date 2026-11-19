@@ -15,7 +15,9 @@ exports.app = (0, express_1.default)();
 exports.app.use((0, helmet_1.default)());
 // 2. Cấu hình CORS
 exports.app.use((0, cors_1.default)({
-    origin: env_js_1.ENV.CORS_ORIGIN,
+    origin: (origin, callback) => {
+        callback(null, true); // Cho phép frontend (localhost, Vercel, v.v.) kết nối an toàn
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,

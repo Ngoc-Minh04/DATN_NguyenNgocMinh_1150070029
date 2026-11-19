@@ -7,19 +7,29 @@ exports.redisClient = void 0;
 exports.testRedisConnection = testRedisConnection;
 const ioredis_1 = __importDefault(require("ioredis"));
 const env_js_1 = require("./env.js");
-exports.redisClient = new ioredis_1.default({
-    host: env_js_1.ENV.REDIS_HOST,
-    port: env_js_1.ENV.REDIS_PORT,
-    password: env_js_1.ENV.REDIS_PASSWORD || undefined,
-    lazyConnect: true,
-    maxRetriesPerRequest: 1,
-    retryStrategy(times) {
-        if (times > 3) {
-            return null; // Stop retrying after 3 attempts
-        }
-        return Math.min(times * 1000, 3000);
-    },
-});
+exports.redisClient = env_js_1.ENV.REDIS_URL
+    ? new ioredis_1.default(env_js_1.ENV.REDIS_URL, {
+        lazyConnect: true,
+        maxRetriesPerRequest: 1,
+        retryStrategy(times) {
+            if (times > 3)
+                return null;
+            return Math.min(times * 1000, 3000);
+        },
+    })
+    : new ioredis_1.default({
+        host: env_js_1.ENV.REDIS_HOST,
+        port: env_js_1.ENV.REDIS_PORT,
+        password: env_js_1.ENV.REDIS_PASSWORD || undefined,
+        lazyConnect: true,
+        maxRetriesPerRequest: 1,
+        retryStrategy(times) {
+            if (times > 3) {
+                return null; // Stop retrying after 3 attempts
+            }
+            return Math.min(times * 1000, 3000);
+        },
+    });
 exports.redisClient.on('connect', () => {
     console.log('[Redis Connected] Successfully connected to Redis instance.');
 });
