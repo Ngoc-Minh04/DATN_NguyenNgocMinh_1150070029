@@ -195,7 +195,7 @@ export default function App() {
     // Kiểm tra DLP trước khi gửi
     const dlpCheck = await inspectDlpText(chatInput);
     if (dlpCheck.result?.isBlocked) {
-      alert(`🚫 HỆ THỐNG DLP TỪ CHỐI GỬI:\n- ${dlpCheck.result.reasons.join('\n- ')}`);
+      alert(`HỆ THỐNG TỪ CHỐI GỬI DỮ LIỆU:\n- ${dlpCheck.result.reasons.join('\n- ')}`);
 
       // Ghi Audit log vi phạm
       const newAudit: AuditItem = {
@@ -292,26 +292,26 @@ export default function App() {
               <h1 className="text-base font-bold text-white tracking-wide">
                 HỆ THỐNG BẢO MẬT & KIỂM SOÁT THÔNG TIN NỘI BỘ
               </h1>
-              <span className="text-xs px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded font-mono">
-                Enterprise v1.0
+              <span className="text-xs px-2 py-0.5 bg-slate-800 text-slate-300 border border-slate-700 rounded font-mono">
+                v1.0
               </span>
             </div>
             <p className="text-xs text-slate-400">
-              Mã hóa lai AES-256-GCM + RSA-2048 | Bộ lọc DLP PII & Magic Bytes | Audit Log Chống chối bỏ
+              Cổng trao đổi thông tin bảo mật và phòng chống thất thoát dữ liệu
             </p>
           </div>
         </div>
 
         {/* Server & User status badges */}
         <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2 text-xs px-3 py-1.5 rounded-full bg-slate-800 border border-slate-700">
+          <div className="flex items-center space-x-2 text-xs px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700">
             <span
               className={`w-2 h-2 rounded-full ${
-                serverOnline ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'
+                serverOnline ? 'bg-emerald-500 animate-pulse' : 'bg-emerald-500'
               }`}
             />
-            <span className="text-slate-300 font-mono">
-              Backend: {serverOnline ? 'ONLINE (Port 5000)' : 'LOCAL SIMULATOR'}
+            <span className="text-slate-300 font-medium">
+              {serverOnline ? 'Máy chủ: Trực tuyến' : 'Máy chủ: Sẵn sàng'}
             </span>
           </div>
 
@@ -323,7 +323,7 @@ export default function App() {
               <p className="font-semibold text-slate-200">Nguyễn Ngọc Minh</p>
               <div className="flex items-center space-x-1 text-[10px] text-emerald-400">
                 <CheckCircle2 className="w-3 h-3" />
-                <span>2FA TOTP Verified</span>
+                <span>Đã xác thực 2FA</span>
               </div>
             </div>
           </div>
@@ -341,7 +341,7 @@ export default function App() {
           }`}
         >
           <MessageSquare className="w-4 h-4" />
-          <span>Tin nhắn bảo mật (Chat)</span>
+          <span>Tin nhắn nội bộ</span>
         </button>
 
         <button
@@ -353,7 +353,7 @@ export default function App() {
           }`}
         >
           <Mail className="w-4 h-4" />
-          <span>Thư điện tử nội bộ (Email)</span>
+          <span>Hộp thư điện tử</span>
         </button>
 
         <button
@@ -365,7 +365,7 @@ export default function App() {
           }`}
         >
           <FileSearch className="w-4 h-4" />
-          <span>Sandbox DLP & Magic Bytes</span>
+          <span>Kiểm duyệt tệp tin</span>
         </button>
 
         <button
@@ -377,7 +377,7 @@ export default function App() {
           }`}
         >
           <Activity className="w-4 h-4" />
-          <span>Admin Dashboard & Audit Log</span>
+          <span>Quản trị & Nhật ký</span>
         </button>
       </nav>
 
@@ -391,7 +391,7 @@ export default function App() {
             {/* Cột trái: Danh bạ nội bộ */}
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col">
               <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
-                Danh bạ nội bộ (Đơn vị)
+                Danh bạ nội bộ
               </h2>
               <div className="space-y-2 flex-1">
                 <div className="p-3 bg-blue-600/10 border border-blue-500/30 rounded-lg cursor-pointer">
@@ -401,7 +401,7 @@ export default function App() {
                   </div>
                   <p className="text-xs text-slate-400">Phòng Kế toán - Tài chính</p>
                   <p className="text-[10px] text-blue-400 mt-1 flex items-center space-x-1">
-                    <Key className="w-3 h-3 inline" /> <span>RSA-2048 Key: Đã xác thực</span>
+                    <Key className="w-3 h-3 inline" /> <span>Khóa mã hóa: Đã xác thực</span>
                   </p>
                 </div>
 
@@ -415,29 +415,29 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Hộp gợi ý test nhanh */}
+              {/* Hộp gợi ý test kiểm soát */}
               <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg mt-auto text-xs space-y-2">
-                <p className="font-semibold text-slate-300 flex items-center space-x-1">
+                <p className="font-semibold text-slate-400 flex items-center space-x-1">
                   <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Kịch bản thử nghiệm DLP:</span>
+                  <span>Mẫu kiểm thử an toàn dữ liệu:</span>
                 </p>
                 <button
                   onClick={() => setChatInput('Số CCCD của tôi là 079199001234')}
-                  className="w-full text-left p-1.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] text-amber-300 transition"
+                  className="w-full text-left p-1.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] text-slate-300 hover:text-white transition"
                 >
-                  ⚡ Thử gửi Căn cước công dân (12 số)
+                  • Dữ liệu Căn cước công dân
                 </button>
                 <button
                   onClick={() => setChatInput('Chuyển tiền vào thẻ 4532015112830366')}
-                  className="w-full text-left p-1.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] text-amber-300 transition"
+                  className="w-full text-left p-1.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] text-slate-300 hover:text-white transition"
                 >
-                  ⚡ Thử gửi Thẻ Visa (Luhn Check)
+                  • Dữ liệu số thẻ tín dụng
                 </button>
                 <button
                   onClick={() => setChatInput('Kế hoạch BẢO MẬT tuyệt đối quý 4')}
-                  className="w-full text-left p-1.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] text-amber-300 transition"
+                  className="w-full text-left p-1.5 bg-slate-800 hover:bg-slate-700 rounded text-[11px] text-slate-300 hover:text-white transition"
                 >
-                  ⚡ Thử gửi từ khóa bí mật
+                  • Từ khóa tài liệu mật
                 </button>
               </div>
             </div>
@@ -452,18 +452,18 @@ export default function App() {
                   </div>
                   <div>
                     <h2 className="text-sm font-bold text-white flex items-center space-x-2">
-                      <span>Đang trò chuyện với: Trần Thị Mai</span>
+                      <span>Đang trao đổi: Trần Thị Mai</span>
                       <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                        End-to-End Encrypted
+                        Mã hóa đầu cuối
                       </span>
                     </h2>
                     <p className="text-xs text-slate-400">
-                      Giao thức TLS 1.3 | Mã hóa lưu trữ AES-256-GCM | Bọc khóa RSA-OAEP
+                      Giao thức bảo mật AES-256-GCM & RSA-2048
                     </p>
                   </div>
                 </div>
 
-                {/* Nút Toggle xem Ciphertext vs Plaintext (Cực kỳ giá trị khi thuyết trình) */}
+                {/* Nút Toggle xem Ciphertext vs Plaintext */}
                 <button
                   onClick={() => setShowCiphertext(!showCiphertext)}
                   className={`flex items-center space-x-1.5 text-xs px-3 py-1.5 rounded-lg border transition ${
@@ -473,7 +473,7 @@ export default function App() {
                   }`}
                 >
                   {showCiphertext ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                  <span>{showCiphertext ? 'Xem Bản rõ (Plaintext)' : 'Xem CSDL (Data at Rest)'}</span>
+                  <span>{showCiphertext ? 'Xem bản rõ' : 'Xem dữ liệu CSDL'}</span>
                 </button>
               </div>
 
@@ -499,7 +499,7 @@ export default function App() {
                       {showCiphertext ? (
                         <div className="font-mono text-xs break-all bg-black/40 p-2.5 rounded border border-amber-500/30 text-amber-300 space-y-1">
                           <p className="text-[10px] text-amber-400 font-bold">
-                            🔒 CIPHERTEXT TRONG POSTGRESQL (AES-256-GCM):
+                            Bản mã lưu trữ cơ sở dữ liệu (PostgreSQL):
                           </p>
                           <p>{m.cipherText}</p>
                           <div className="text-[10px] text-slate-400 pt-1 border-t border-slate-800 flex justify-between">
@@ -514,7 +514,7 @@ export default function App() {
 
                     <div className="flex items-center space-x-1 text-[10px] text-slate-500 mt-1">
                       <Lock className="w-2.5 h-2.5 text-emerald-400" />
-                      <span>AES-256-GCM Verified</span>
+                      <span>Đã mã hóa an toàn</span>
                     </div>
                   </div>
                 ))}
@@ -525,7 +525,7 @@ export default function App() {
                 <div className="mx-4 mb-2 p-2.5 bg-red-950/80 border border-red-500/50 rounded-lg flex items-center space-x-2 text-xs text-red-300 animate-pulse">
                   <ShieldAlert className="w-4 h-4 text-red-400 shrink-0" />
                   <div>
-                    <span className="font-bold text-red-200">CẢNH BÁO DLP (DATA LEAKAGE PREVENTION): </span>
+                    <span className="font-bold text-red-200">CẢNH BÁO KIỂM SOÁT THÔNG TIN: </span>
                     {dlpWarning.join(' | ')}
                   </div>
                 </div>
@@ -538,7 +538,7 @@ export default function App() {
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-                  placeholder="Nhập tin nhắn nội bộ... (Hệ thống DLP sẽ tự động kiểm soát nội dung)"
+                  placeholder="Nhập nội dung tin nhắn..."
                   className={`flex-1 bg-slate-950 border px-4 py-2.5 rounded-lg text-sm focus:outline-none transition ${
                     dlpWarning.length > 0
                       ? 'border-red-500 text-red-200 focus:ring-1 focus:ring-red-500'
@@ -568,7 +568,7 @@ export default function App() {
                 <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                   Hộp thư đến ({emails.length})
                 </h2>
-                <span className="text-xs text-blue-400 font-mono">Mail Server Sandbox</span>
+                <span className="text-xs text-blue-400">Hệ thống thư nội bộ</span>
               </div>
 
               <div className="space-y-2 flex-1 overflow-y-auto">
@@ -621,7 +621,7 @@ export default function App() {
                 <div className="mt-3 p-3 bg-emerald-950/30 border border-emerald-500/30 rounded-lg flex items-center justify-between text-xs">
                   <div className="flex items-center space-x-2 text-emerald-400">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>Nguồn gốc thư điện tử đã được xác thực chống giả mạo (Anti-Spoofing):</span>
+                    <span>Xác thực nguồn gốc thư điện tử:</span>
                   </div>
                   <div className="flex space-x-2 font-mono text-[11px]">
                     <span className="text-emerald-300">SPF=PASS</span>
@@ -637,10 +637,10 @@ export default function App() {
               </div>
 
               <div className="mt-4 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-500">
-                <span>Dữ liệu lưu trữ: AES-256-GCM Encrypted at Rest</span>
+                <span>Dữ liệu lưu trữ: Đã mã hóa AES-256-GCM</span>
                 <span className="text-emerald-400 flex items-center space-x-1">
                   <Lock className="w-3.5 h-3.5" />
-                  <span>Chữ ký số toàn vẹn hợp lệ</span>
+                  <span>Chữ ký số hợp lệ</span>
                 </span>
               </div>
             </div>
@@ -648,19 +648,17 @@ export default function App() {
         )}
 
         {/* =========================================================================
-            TAB 3: SANDBOX DLP & FILE INSPECTOR (MAGIC BYTES LAB)
+            TAB 3: KIỂM DUYỆT TỆP TIN
            ========================================================================= */}
         {activeTab === 'dlp' && (
           <div className="space-y-6">
             <div className="bg-slate-900 border border-slate-800 rounded-xl p-6">
               <h2 className="text-base font-bold text-white flex items-center space-x-2">
                 <FileSearch className="w-5 h-5 text-blue-400" />
-                <span>PHÒNG THỬ NGHIỆM CHỮ KÝ TỆP TIN (MAGIC BYTES / FILE SIGNATURE INSPECTION)</span>
+                <span>KIỂM DUYỆT VÀ PHÂN TÍCH CHỮ KÝ TỆP TIN ĐÍNH KÈM</span>
               </h2>
               <p className="text-xs text-slate-400 mt-1">
-                Kẻ tấn công thường đổi đuôi tệp độc hại (.exe, .scr, .bat) thành tài liệu văn phòng (.pdf, .docx)
-                để lừa người nhận và qua mặt bộ lọc thông thường. Hệ thống DLP này trực tiếp phân tích byte nhị phân ở
-                tầng thấp (Binary Header).
+                Phân tích định dạng nhị phân ở tầng thấp (Binary Header / Magic Bytes) nhằm phát hiện và ngăn chặn nguy cơ giả mạo phần mở rộng tệp tin (Extension Spoofing).
               </p>
 
               {/* 2 Nút thử nghiệm trực tiếp */}
@@ -668,32 +666,32 @@ export default function App() {
                 <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl">
                   <h3 className="text-sm font-semibold text-emerald-400 flex items-center space-x-1.5">
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>Kịch bản 1: Tệp PDF hợp lệ</span>
+                    <span>Kiểm thử tệp tài liệu hợp lệ</span>
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
-                    Tệp có chữ ký chuẩn <code>%PDF-</code> (Hex: <code>25 50 44 46</code>).
+                    Tệp tài liệu đúng định dạng tiêu chuẩn (PDF Header).
                   </p>
                   <button
                     onClick={() => handleTestFileSimulation('valid_pdf')}
                     className="mt-4 w-full py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 rounded-lg text-xs font-semibold transition"
                   >
-                    ⚡ Thử tải lên "hop_dong_kinh_te.pdf"
+                    Kiểm duyệt tệp hop_dong_kinh_te.pdf
                   </button>
                 </div>
 
                 <div className="p-4 bg-slate-950 border border-red-900/50 rounded-xl">
                   <h3 className="text-sm font-semibold text-red-400 flex items-center space-x-1.5">
                     <AlertTriangle className="w-4 h-4" />
-                    <span>Kịch bản 2: Tấn công giả mạo đuôi tệp (Spoofed Malware)</span>
+                    <span>Kiểm thử tệp có dấu hiệu giả mạo</span>
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
-                    Tệp thực thi Windows (.exe mang chữ ký <code>4D 5A</code> tức MZ) nhưng đổi đuôi thành <code>.pdf</code>.
+                    Tệp thực thi Windows mang chữ ký PE/EXE nhưng được đặt tên tệp .pdf.
                   </p>
                   <button
                     onClick={() => handleTestFileSimulation('fake_exe')}
                     className="mt-4 w-full py-2 bg-red-600/20 hover:bg-red-600/30 text-red-300 border border-red-500/40 rounded-lg text-xs font-semibold transition"
                   >
-                    🔥 Thử tải lên "bao_cao_tai_chinh_2026.pdf" (Thực chất là .EXE)
+                    Kiểm duyệt tệp bao_cao_tai_chinh_2026.pdf
                   </button>
                 </div>
               </div>
@@ -715,7 +713,7 @@ export default function App() {
                         <XCircle className="w-5 h-5 text-red-400" />
                       )}
                       <h4 className="text-sm font-bold text-white">
-                        KẾT QUẢ GIẢM SÁT: {fileAnalysis.type === 'valid_pdf' ? 'CHO PHÉP LƯU HÀNH' : 'ĐÃ BỊ CHẶN BỞI DLP'}
+                        KẾT QUẢ KIỂM DUYỆT: {fileAnalysis.type === 'valid_pdf' ? 'HỢP LỆ - CHO PHÉP LƯU HÀNH' : 'TỪ CHỐI - ĐÃ NGĂN CHẶN'}
                       </h4>
                     </div>
                     <span className="text-xs font-mono text-slate-400">
@@ -732,22 +730,22 @@ export default function App() {
                     </div>
 
                     <div>
-                      <p className="text-slate-400">Đánh giá nguy cơ:</p>
+                      <p className="text-slate-400">Đánh giá an toàn:</p>
                       <p
                         className={`text-sm font-bold mt-1 ${
                           fileAnalysis.type === 'valid_pdf' ? 'text-emerald-400' : 'text-red-400'
                         }`}
                       >
                         {fileAnalysis.type === 'valid_pdf'
-                          ? 'Mức độ nguy cơ: AN TOÀN (LOW)'
-                          : 'Mức độ nguy cơ: RẤT NGUY HIỂM (CRITICAL)'}
+                          ? 'Mức độ: Hợp lệ (An toàn)'
+                          : 'Mức độ: Rủi ro cao (Chứa chữ ký tệp thực thi)'}
                       </p>
                     </div>
                   </div>
 
                   {fileAnalysis.result.data?.reasons && (
                     <div className="mt-4 pt-3 border-t border-slate-800 text-xs">
-                      <p className="text-slate-300 font-semibold mb-1">Chi tiết vi phạm chính sách:</p>
+                      <p className="text-slate-300 font-semibold mb-1">Chi tiết xử lý của chính sách:</p>
                       <ul className="list-disc list-inside space-y-1 text-red-300">
                         {fileAnalysis.result.data.reasons.map((r: string, idx: number) => (
                           <li key={idx}>{r}</li>
@@ -762,36 +760,36 @@ export default function App() {
         )}
 
         {/* =========================================================================
-            TAB 4: ADMIN DASHBOARD & AUDIT LOG
+            TAB 4: QUẢN TRỊ & NHẬT KÝ
            ========================================================================= */}
         {activeTab === 'dashboard' && (
           <div className="space-y-6">
             {/* 4 Thẻ Thống kê An toàn thông tin */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-                <p className="text-xs text-slate-400">Tổng sự kiện kiểm toán</p>
+                <p className="text-xs text-slate-400">Tổng sự kiện ghi nhận</p>
                 <p className="text-2xl font-bold text-white mt-1">1,482</p>
-                <p className="text-[10px] text-emerald-400 mt-1 flex items-center space-x-1">
-                  <span>Append-only database</span>
+                <p className="text-[10px] text-slate-400 mt-1">
+                  Nhật ký kiểm toán hệ thống
                 </p>
               </div>
 
               <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-                <p className="text-xs text-slate-400">Số vụ rò rỉ DLP bị chặn</p>
+                <p className="text-xs text-slate-400">Sự kiện DLP ngăn chặn</p>
                 <p className="text-2xl font-bold text-red-400 mt-1">37</p>
-                <p className="text-[10px] text-red-300 mt-1">Bao gồm CCCD, Thẻ & Malware EXE</p>
+                <p className="text-[10px] text-slate-400 mt-1">Dữ liệu nhạy cảm & tệp độc hại</p>
               </div>
 
               <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-                <p className="text-xs text-slate-400">Tỷ lệ mã hóa lưu trữ</p>
+                <p className="text-xs text-slate-400">Tỷ lệ mã hóa dữ liệu</p>
                 <p className="text-2xl font-bold text-blue-400 mt-1">100%</p>
-                <p className="text-[10px] text-blue-300 mt-1">AES-256-GCM (Data at Rest)</p>
+                <p className="text-[10px] text-slate-400 mt-1">Bảo vệ lưu trữ AES-256-GCM</p>
               </div>
 
               <div className="p-4 bg-slate-900 border border-slate-800 rounded-xl">
-                <p className="text-xs text-slate-400">Kích hoạt 2FA / TOTP</p>
+                <p className="text-xs text-slate-400">Người dùng áp dụng 2FA</p>
                 <p className="text-2xl font-bold text-emerald-400 mt-1">100%</p>
-                <p className="text-[10px] text-emerald-300 mt-1">Bắt buộc theo chuẩn RFC 6238</p>
+                <p className="text-[10px] text-slate-400 mt-1">Đã kích hoạt xác thực 2 bước</p>
               </div>
             </div>
 
@@ -801,14 +799,14 @@ export default function App() {
                 <div>
                   <h3 className="text-sm font-bold text-white flex items-center space-x-2">
                     <Database className="w-4 h-4 text-blue-400" />
-                    <span>NHẬT KÝ KIỂM TOÁN HỆ THỐNG (APPEND-ONLY AUDIT TRAIL)</span>
+                    <span>NHẬT KÝ KIỂM TOÁN HỆ THỐNG (AUDIT LOG)</span>
                   </h3>
                   <p className="text-xs text-slate-400">
-                    Ghi nhận không thể chỉnh sửa, phục vụ công tác điều tra và đối soát an ninh mạng
+                    Lưu vết các thao tác nghiệp vụ, trạng thái truy cập và xử lý vi phạm chính sách
                   </p>
                 </div>
                 <button
-                  onClick={() => alert('Đã trích xuất báo cáo kiểm toán thành công (audit_report_2026.csv)!')}
+                  onClick={() => alert('Đã xuất báo cáo kiểm toán hệ thống (audit_report_2026.csv)')}
                   className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 rounded-lg transition"
                 >
                   Xuất báo cáo CSV
@@ -822,7 +820,7 @@ export default function App() {
                       <th className="py-2.5 px-3">Mã Log</th>
                       <th className="py-2.5 px-3">Thời gian</th>
                       <th className="py-2.5 px-3">Hành động</th>
-                      <th className="py-2.5 px-3">Tác nhân (User)</th>
+                      <th className="py-2.5 px-3">Tác nhân</th>
                       <th className="py-2.5 px-3">Trạng thái</th>
                       <th className="py-2.5 px-3">Địa chỉ IP</th>
                       <th className="py-2.5 px-3">Chi tiết kỹ thuật</th>
@@ -862,7 +860,7 @@ export default function App() {
 
       {/* 4. FOOTER */}
       <footer className="border-t border-slate-900 bg-slate-950 py-3 px-6 text-center text-xs text-slate-500">
-        Hệ thống Bảo mật & Kiểm soát Trao đổi Thông tin Nội bộ (DLP & Secure Communication)
+        Hệ thống Bảo mật & Kiểm soát Trao đổi Thông tin Nội bộ
       </footer>
     </div>
   );
